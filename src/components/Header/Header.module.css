@@ -1,0 +1,14 @@
+.header {
+  padding: 20px 10px;
+}
+
+.header__title {
+  margin: 0px;
+  display: flex;
+  align-items: center;
+}
+
+.header__title svg {
+  margin-right: 5px;
+  height: 40px;
+}

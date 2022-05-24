@@ -1,0 +1,14 @@
+.contacts__header {
+  padding: 15px 10px;
+}
+
+.contacts__title {
+  margin: 0px;
+  display: flex;
+  align-items: center;
+}
+
+.contacts__title svg {
+  margin-right: 5px;
+  height: 40px;
+}

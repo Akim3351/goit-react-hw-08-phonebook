@@ -1,0 +1,51 @@
+.contacts__item {
+  box-sizing: border-box;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid gray;
+  border-radius: 2px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.contacts__info {
+  display: block;
+  margin: 5px 0;
+}
+
+.contacts__options {
+  display: flex;
+}
+
+.contacts__phoneicon {
+  display: flex;
+  height: 30px;
+  width: 125px;
+  background-color: rgb(142, 175, 142);
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.contacts__phoneicon svg {
+  height: 20px;
+  margin: 5px;
+}
+
+.contacts__item button {
+  height: 30px;
+  width: 125px;
+  background-color: rgb(219, 111, 111);
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.contacts__item button:active {
+  color: white;
+  background-color: red;
+}
