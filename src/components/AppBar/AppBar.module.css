@@ -1,0 +1,8 @@
+.header__wrapper {
+  max-width: 1200px;
+  padding: 10px 50px;
+}
+
+.header__title {
+  color: #2c002c;
+}

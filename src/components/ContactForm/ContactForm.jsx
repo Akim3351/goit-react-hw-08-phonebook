@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 import {
   useGetContactsQuery,
   useAddContactMutation,
-} from 'redux/contactsSlice';
+} from 'redux/contacts/contactsSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import shortid from 'shortid';
 import css from './ContactForm.module.css';
 
 const ContactForm = () => {
   const { data = [] } = useGetContactsQuery();
   const [formValue, setFormValue] = useState({
     name: '',
-    phone: '',
+    number: '',
   });
   const [addContact] = useAddContactMutation();
 
@@ -27,21 +26,18 @@ const ContactForm = () => {
 
   const onFormSubmit = async event => {
     event.preventDefault();
-    const newContact = {
-      id: shortid.generate(),
-      ...formValue,
-    };
-
+    const { name, number } = formValue;
+    console.log(name, number);
     const contactAllreadyExists = contactNamesForCheck.find(
-      item => item === newContact.name.toLowerCase()
+      item => item === name.toLowerCase()
     );
 
     if (contactAllreadyExists) {
-      toast.error(`${newContact.name}'s phone is already in your contacts`);
+      toast.error(`${name}'s phone is already in your contacts`);
     } else {
-      await addContact(newContact);
-      toast.success(`${newContact.name}'s phone added to your contacts`);
-      setFormValue({ name: '', phone: '' });
+      await addContact({ name, number }).unwrap();
+      toast.success(`${name}'s phone added to your contacts`);
+      setFormValue({ name: '', number: '' });
     }
   };
 
@@ -64,8 +60,8 @@ const ContactForm = () => {
           number
           <input
             type="tel"
-            name="phone"
-            value={formValue.phone}
+            name="number"
+            value={formValue.number}
             onChange={onFormChange}
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"

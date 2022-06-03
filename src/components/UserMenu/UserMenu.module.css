@@ -1,0 +1,17 @@
+.logout__button {
+  height: 30px;
+  width: 100px;
+  border-radius: 5px;
+  margin: 10px 0px 10px 0px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.logout__button:active {
+  color: white;
+  background-color: blue;
+}
