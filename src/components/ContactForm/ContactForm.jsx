@@ -27,18 +27,18 @@ const ContactForm = () => {
   const onFormSubmit = async event => {
     event.preventDefault();
     const { name, number } = formValue;
-    console.log(name, number);
     const contactAllreadyExists = contactNamesForCheck.find(
       item => item === name.toLowerCase()
     );
 
     if (contactAllreadyExists) {
       toast.error(`${name}'s phone is already in your contacts`);
-    } else {
-      await addContact({ name, number }).unwrap();
-      toast.success(`${name}'s phone added to your contacts`);
-      setFormValue({ name: '', number: '' });
+      return;
     }
+
+    await addContact({ name, number }).unwrap();
+    toast.success(`${name}'s phone added to your contacts`);
+    setFormValue({ name: '', number: '' });
   };
 
   return (

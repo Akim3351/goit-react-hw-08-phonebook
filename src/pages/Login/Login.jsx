@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import authSelectors from 'redux/auth/authSelectors';
+import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from '../../redux/auth/authOperations';
+import Loader from 'components/Loader/Loader';
 import css from './Login.module.css';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const isFulfilled = useSelector(authSelectors.getIsFulfilled);
+  const isPending = useSelector(authSelectors.getIsPending);
   const [formValue, setFormValue] = useState({
     email: '',
     password: '',
@@ -19,11 +23,13 @@ const Login = () => {
     event.preventDefault();
     dispatch(logIn(formValue));
 
-    setFormValue({
-      name: '',
-      email: '',
-      password: '',
-    });
+    if (isFulfilled) {
+      setFormValue({
+        name: '',
+        email: '',
+        password: '',
+      });
+    }
   };
 
   return (
@@ -36,6 +42,7 @@ const Login = () => {
             name="email"
             value={formValue.email}
             onChange={onFormChange}
+            required
           />
         </label>
         <label className={css.input__label}>
@@ -45,9 +52,10 @@ const Login = () => {
             name="password"
             value={formValue.password}
             onChange={onFormChange}
+            required
           />
         </label>
-        <button type="submit">SIGN IN!</button>
+        {isPending ? <Loader /> : <button type="submit">SIGN IN!</button>}
       </form>
     </div>
   );

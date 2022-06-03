@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import authSelectors from 'redux/auth/authSelectors';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../redux/auth/authOperations';
+import Loader from 'components/Loader/Loader';
 import css from './Register.module.css';
 
 const Register = () => {
+  const isFulfilled = useSelector(authSelectors.getIsFulfilled);
+  const isPending = useSelector(authSelectors.getIsPending);
   const dispatch = useDispatch();
   const [formValue, setFormValue] = useState({
     name: '',
@@ -21,11 +25,13 @@ const Register = () => {
 
     dispatch(register(formValue));
 
-    setFormValue({
-      name: '',
-      email: '',
-      password: '',
-    });
+    if (isFulfilled) {
+      setFormValue({
+        name: '',
+        email: '',
+        password: '',
+      });
+    }
   };
 
   return (
@@ -38,6 +44,7 @@ const Register = () => {
             name="name"
             value={formValue.name}
             onChange={onFormChange}
+            required
           />
         </label>
         <label className={css.input__label}>
@@ -47,6 +54,7 @@ const Register = () => {
             name="email"
             value={formValue.email}
             onChange={onFormChange}
+            required
           />
         </label>
         <label className={css.input__label}>
@@ -58,7 +66,7 @@ const Register = () => {
             onChange={onFormChange}
           />
         </label>
-        <button type="submit">SIGN UP!</button>
+        {isPending ? <Loader /> : <button type="submit">SIGN UP!</button>}
       </form>
     </div>
   );

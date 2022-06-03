@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import {
   useDeleteContactMutation,
   useGetContactsQuery,
@@ -43,6 +44,10 @@ const ContactsList = ({ filter }) => {
       <ToastContainer />
     </>
   );
+};
+
+ContactsList.propTypes = {
+  filter: propTypes.string,
 };
 
 export default ContactsList;

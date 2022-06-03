@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { fetchCurrentUser } from 'redux/auth/authOperations';
-import PrivateRoute from './Routes/PrivateRoute';
-import PublicRoute from './Routes/PublicRoute';
-import Contacts from 'pages/Contacts/Contacts';
-import Register from 'pages/Register/Register';
-import Login from 'pages/Login/Login';
-import Layout from './Layout/Layout';
+import PrivateRoute from './components/Routes/PrivateRoute';
+import PublicRoute from './components/Routes/PublicRoute';
+import Contacts from './pages/Contacts/Contacts';
+import Register from './pages/Register/Register';
+import Login from './pages/Login/Login';
+import Layout from './components/Layout/Layout';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
+      <ToastContainer />
     </>
   );
 }

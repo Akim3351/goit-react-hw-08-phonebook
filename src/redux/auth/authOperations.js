@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
@@ -15,10 +16,16 @@ const token = {
 export const register = createAsyncThunk('auth/register', async credentials => {
   try {
     const { data } = await axios.post('/users/signup', credentials);
+    toast.success(
+      `Hello, ${data.user.name}! Let's start saving your contacts!`
+    );
     token.set(data.token);
     return data;
   } catch (error) {
     console.log(error);
+    toast.error(
+      `Oops!! Something has gone wrong. Try again or call administrator for help!`
+    );
   }
 });
 
@@ -26,9 +33,13 @@ export const logIn = createAsyncThunk('auth/login', async credentials => {
   try {
     const { data } = await axios.post('/users/login', credentials);
     token.set(data.token);
+    toast.success(`Hello, ${data.user.name}!`);
     return data;
   } catch (error) {
     console.log(error);
+    toast.error(
+      `Oops!! Something has gone wrong. Try again or call administrator for help!`
+    );
   }
 });
 
@@ -38,6 +49,9 @@ export const logOut = createAsyncThunk('auth/logout', async () => {
     token.unset();
   } catch (error) {
     console.log(error);
+    toast.error(
+      `Oops!! Something has gone wrong. Try again or call administrator for help!`
+    );
   }
 });
 
@@ -57,6 +71,9 @@ export const fetchCurrentUser = createAsyncThunk(
       return data;
     } catch (error) {
       console.log(error);
+      toast.error(
+        `Oops!! Something has gone wrong. Try again or call administrator for help!`
+      );
     }
   }
 );

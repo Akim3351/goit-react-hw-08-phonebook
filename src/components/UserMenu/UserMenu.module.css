@@ -1,3 +1,31 @@
+.navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.link {
+  font-size: 18px;
+  font-weight: 500;
+  color: #2c002c;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.link:hover {
+  cursor: pointer;
+  text-decoration: underline 2px;
+}
+
+.activeLink {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: #2c002c;
+  text-transform: uppercase;
+  text-decoration: underline 2px #2c002c;
+}
+
 .logout__button {
   height: 30px;
   width: 100px;
