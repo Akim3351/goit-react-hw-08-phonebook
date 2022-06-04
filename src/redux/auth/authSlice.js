@@ -43,7 +43,7 @@ const authSlice = createSlice({
       state.isFulfilled = true;
     },
 
-    [register.rejected](state, action) {
+    [logIn.rejected](state, action) {
       state.isPending = false;
     },
 
