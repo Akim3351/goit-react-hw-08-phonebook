@@ -1,7 +1,7 @@
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { createSlice } from '@reduxjs/toolkit';
-import { register, logIn, logOut, fetchCurrentUser } from './authOperations';
+import { register, login, logOut, fetchCurrentUser } from './authOperations';
 
 const initialState = {
   user: { name: null, email: null },
@@ -19,6 +19,7 @@ const authSlice = createSlice({
   extraReducers: {
     [register.pending](state, action) {
       state.isPending = true;
+      state.isFulfilled = false;
     },
 
     [register.fulfilled](state, action) {
@@ -30,12 +31,13 @@ const authSlice = createSlice({
     },
 
     [register.rejected](state, action) {
+      state.isFulfilled = false;
       state.isPending = false;
     },
-    [logIn.pending](state, action) {
+    [login.pending](state, action) {
       state.isPending = true;
     },
-    [logIn.fulfilled](state, action) {
+    [login.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
@@ -43,7 +45,8 @@ const authSlice = createSlice({
       state.isFulfilled = true;
     },
 
-    [logIn.rejected](state, action) {
+    [login.rejected](state, action) {
+      state.isFulfilled = false;
       state.isPending = false;
     },
 
@@ -54,7 +57,7 @@ const authSlice = createSlice({
       state.isPending = false;
     },
 
-    [fetchCurrentUser.pending](state) {
+    [fetchCurrentUser.pending](state, action) {
       state.isFetchingCurrentUser = true;
       state.isPending = true;
     },

@@ -24,12 +24,13 @@ export const register = createAsyncThunk('auth/register', async credentials => {
   } catch (error) {
     console.log(error);
     toast.error(
-      `Oops!! Something has gone wrong. Try again or call administrator for help!`
+      `Oops!! Something has gone wrong: ${error.message}. Try again or call administrator for help!`
     );
+    throw new Error(error.message);
   }
 });
 
-export const logIn = createAsyncThunk('auth/login', async credentials => {
+export const login = createAsyncThunk('auth/login', async credentials => {
   try {
     const { data } = await axios.post('/users/login', credentials);
     token.set(data.token);
@@ -38,8 +39,9 @@ export const logIn = createAsyncThunk('auth/login', async credentials => {
   } catch (error) {
     console.log(error);
     toast.error(
-      `Oops!! Something has gone wrong. Try again or call administrator for help!`
+      `Oops!! Something has gone wrong: ${error.message}. Try again or call administrator for help!`
     );
+    throw new Error(error.message);
   }
 });
 
@@ -50,8 +52,9 @@ export const logOut = createAsyncThunk('auth/logout', async () => {
   } catch (error) {
     console.log(error);
     toast.error(
-      `Oops!! Something has gone wrong. Try again or call administrator for help!`
+      `Oops!! Something has gone wrong: ${error.message}. Try again or call administrator for help!`
     );
+    throw new Error(error.message);
   }
 });
 

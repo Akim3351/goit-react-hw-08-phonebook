@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import authSelectors from 'redux/auth/authSelectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { logIn } from '../../redux/auth/authOperations';
+import { login } from '../../redux/auth/authOperations';
 import Loader from 'components/Loader/Loader';
 import css from './Login.module.css';
 
@@ -14,6 +14,8 @@ const Login = () => {
     password: '',
   });
 
+  useEffect(() => {}, [dispatch]);
+
   const onFormChange = event => {
     const { name, value } = event.currentTarget;
     setFormValue({ ...formValue, [name]: value });
@@ -21,7 +23,7 @@ const Login = () => {
 
   const onFormSubmit = event => {
     event.preventDefault();
-    dispatch(logIn(formValue));
+    dispatch(login(formValue));
 
     if (isFulfilled) {
       setFormValue({
